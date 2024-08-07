@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23237b7be22f842eca732eebae5e4d05, type: 3}
+  m_Name: Item Inventory_WoodStick
+  m_EditorClassIdentifier: 
+  id: ItemInventory_WoodenStick
+  displayName: Wooden Stick
+  icon: {fileID: 21300000, guid: 20a796ec0e3b54acd98b016a2ce177e9, type: 3}
+  prefab: {fileID: 4040203168400103837, guid: 281bb7553cd32ec4782bfe4ba8135612, type: 3}
