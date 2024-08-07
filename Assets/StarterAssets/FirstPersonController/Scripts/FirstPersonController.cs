@@ -51,6 +51,12 @@ namespace StarterAssets
 		[Tooltip("How far in degrees can you move the camera down")]
 		public float BottomClamp = -90.0f;
 
+		[Header("Gliding")]
+		public float GlideGravity = -2.0f;
+		public float GlideSpeed = 4.0f;
+		public KeyCode GlideKey = KeyCode.LeftShift;
+
+
 		// cinemachine
 		private float _cinemachineTargetPitch;
 
@@ -59,6 +65,8 @@ namespace StarterAssets
 		private float _rotationVelocity;
 		private float _verticalVelocity;
 		private float _terminalVelocity = 53.0f;
+		private bool _isGliding = false;
+		private bool _canGlide = false;
 
 		// timeout deltatime
 		private float _jumpTimeoutDelta;
@@ -115,6 +123,7 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
+			HandleGlide();
 		}
 
 		private void LateUpdate()
@@ -135,7 +144,7 @@ namespace StarterAssets
 			if (_input.look.sqrMagnitude >= _threshold)
 			{
 				//Don't multiply mouse input by Time.deltaTime
-				float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+				float deltaTimeMultiplier = IsCurrentDeviceMouse ? 2.0f : Time.deltaTime;
 				
 				_cinemachineTargetPitch += _input.look.y * RotationSpeed * deltaTimeMultiplier;
 				_rotationVelocity = _input.look.x * RotationSpeed * deltaTimeMultiplier;
@@ -237,6 +246,14 @@ namespace StarterAssets
 
 				// if we are not grounded, do not jump
 				_input.jump = false;
+
+				if (!_isGliding)
+				{
+					if (_verticalVelocity < _terminalVelocity)
+					{
+						_verticalVelocity += Gravity * Time.deltaTime;
+					}
+				}
 			}
 
 			// apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
@@ -245,6 +262,37 @@ namespace StarterAssets
 				_verticalVelocity += Gravity * Time.deltaTime;
 			}
 		}
+
+		// Gliding Function
+		private void HandleGlide()
+		{
+			if (_canGlide) // Check if gliding is enabled
+            {
+				if (Input.GetKeyDown(GlideKey) && !Grounded)
+				{
+					_isGliding = true;
+				}
+
+				if (Input.GetKeyUp(GlideKey) || Grounded)
+				{
+					_isGliding = false;
+				}
+
+				if (_isGliding)
+				{
+					_verticalVelocity = Mathf.Max(_verticalVelocity, GlideGravity);
+					Vector3 glideDirection = transform.forward * GlideSpeed;
+					_controller.Move(glideDirection * Time.deltaTime);
+				}
+            }
+		}
+
+		// Boolean for glide
+		public void EnableGlide()
+		{
+			_canGlide = true;
+		}
+
 
 		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
 		{
