@@ -1,3 +1,9 @@
+/*
+ * Author: Tan Tock Beng, Chan Hong Wei, Lee Ming Zhe
+ * Date: 05/08/2024
+ * Description: 
+ * Contains enemy AI chasing functions.
+ */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,15 +21,17 @@ public class EnemyAI : MonoBehaviour
     Transform currentDest; 
     Vector3 dest;
     int randNum;
-    public int destinationAmount;
     public Vector3 rayCastOffset;
     public string deathScene;
     public float deathRange = .80f; // the distance at which the enemy kills the player
+    public float aiDistance;
+    public GameObject hideText, stopHideText;
+    public AudioSource walkSound, runSound, heySound;
 
     void Start()
     {
         walking = true;
-        randNum = Random.Range(0, destinationAmount);
+        randNum = Random.Range(0, destinations.Count);
         currentDest = destinations[randNum];
     }
 
@@ -31,14 +39,15 @@ public class EnemyAI : MonoBehaviour
     {
         Vector3 direction = (player.position - transform.position).normalized;
         RaycastHit hit;
+        aiDistance = Vector3.Distance(player.position, this.transform.position);
         if(Physics.Raycast(transform.position + rayCastOffset, direction, out hit,sightDistance))
         {
             if(hit.collider.gameObject.tag == "Player")
             {
                 walking = false;
-                StopCoroutine("stayIdle");
-                StopCoroutine("chaseRoutine");
-                StartCoroutine("chaseRoutine");
+                StopCoroutine("idleState");
+                StopCoroutine("chaseState");
+                StartCoroutine("chaseState");
                 chasing = true;
             }
         }
@@ -51,11 +60,13 @@ public class EnemyAI : MonoBehaviour
             aiAnim.ResetTrigger("walk");
             aiAnim.ResetTrigger("idle");
             aiAnim.SetTrigger("sprint");
-            if (ai.remainingDistance <= catchDistance)
+            if (aiDistance <= catchDistance)
             {
                 //player.gameObject.SetActive(false);
                 aiAnim.ResetTrigger("walk");
                 aiAnim.ResetTrigger("idle");
+                hideText.SetActive(false);
+                stopHideText.SetActive(false);
                 aiAnim.ResetTrigger("sprint");
                 chasing = false;
             }
@@ -75,26 +86,9 @@ public class EnemyAI : MonoBehaviour
                 aiAnim.ResetTrigger("walk");
                 aiAnim.SetTrigger("idle");
                 ai.speed = 0;
-                StopCoroutine("stayIdle");
-                StartCoroutine("stayIdle");
+                StopCoroutine("idleState");
+                StartCoroutine("idleState");
                 walking = false;
-                /*
-                randNum2 = Random.Range(0, 2);
-                if(randNum2 == 0)
-                {
-                    randNum = Random.Range(0, destinationAmount);
-                    currentDest = destinations[randNum];
-                }
-                if(randNum2 == 1)
-                {
-                    aiAnim.ResetTrigger("sprint");
-                    aiAnim.ResetTrigger("walk");
-                    aiAnim.SetTrigger("idle");
-                    StopCoroutine("stayIdle");
-                    StartCoroutine("stayIdle");
-                    walking = false;
-                }
-                */
             }
         }
 
@@ -103,23 +97,37 @@ public class EnemyAI : MonoBehaviour
         PlayerDeath(distance); // method that reloads the level when enemy catches player
     }
 
-    IEnumerator stayIdle()
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            heySound.Play();
+        }
+    }
+
+    public void stopChase()
+    {
+        walking = true;
+        chasing = false;
+        StopCoroutine("chaseState");
+        randNum = Random.Range(0, destinations.Count);
+        currentDest = destinations[randNum];
+    }
+
+    IEnumerator idleState()
     {
         idleTime = Random.Range(minIdleTime, maxIdleTime);
         yield return new WaitForSeconds(idleTime);
         walking = true;
-        randNum = Random.Range(0, destinationAmount);
+        randNum = Random.Range(0, destinations.Count);
         currentDest = destinations[randNum];
     }
 
-    IEnumerator chaseRoutine()
+    IEnumerator chaseState()
     {
         chaseTime = Random.Range(minChaseTime, maxChaseTime);
         yield return new WaitForSeconds(chaseTime);
-        walking = true;
-        chasing = false;
-        randNum = Random.Range(0, destinationAmount);
-        currentDest = destinations[randNum];
+        stopChase();
     }
 
     private void PlayerDeath(float distance)
@@ -129,6 +137,25 @@ public class EnemyAI : MonoBehaviour
         {
             // loads the active scene
             SceneManager.LoadScene(SceneManager.GetActiveScene().name); // this can be easily change to another scene.
+        }
+    }
+
+    public void ToggleHeySound()
+    {
+        if (heySound != null)
+        {
+            if (heySound.isPlaying)
+            {
+                heySound.Pause(); // Pause the audio if it is playing
+            }
+            else
+            {
+                heySound.Play(); // Play the audio if it is not playing
+            }
+        }
+        else
+        {
+            Debug.LogWarning("AudioSource component is not assigned!");
         }
     }
 }

@@ -1,3 +1,9 @@
+/*
+ * Author: Tan Tock Beng, Chan Hong Wei, Lee Ming Zhe
+ * Date: 05/08/2024
+ * Description: 
+ * Contains main menu button functions.
+ */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
