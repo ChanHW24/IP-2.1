@@ -5,7 +5,12 @@ using TMPro;
 
 public class Glide : MonoBehaviour
 {
-    //public GameObject pickUpText; // show pickup message
+    // Text after picking up glider
+    public GameObject gliderActivationText;  // The GameObject to activate
+    public float duration = 10f;         // Duration before deactivating
+    private bool isActivated = false;    // To check if text is activated
+
+    public GameObject pickUpText; // show pickup message
     private StarterAssets.FirstPersonController targetPlayer;
     private bool isPlayerInTrigger = false;
 
@@ -24,7 +29,7 @@ public class Glide : MonoBehaviour
             targetPlayer = other.gameObject.GetComponent<StarterAssets.FirstPersonController>();
             if (targetPlayer != null)
             {
-                //pickUpText.SetActive(true);
+                pickUpText.SetActive(true);
                 isPlayerInTrigger = true;
             }
         }
@@ -34,7 +39,7 @@ public class Glide : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //pickUpText.SetActive(false);
+            pickUpText.SetActive(false);
             isPlayerInTrigger = false;
         }
     }
@@ -44,8 +49,19 @@ public class Glide : MonoBehaviour
         if (targetPlayer != null)
         {
             targetPlayer.EnableGlide();
-            //pickUpText.SetActive(false);
+            pickUpText.SetActive(false);
+            gliderActivationText.SetActive(true);
+            StartCoroutine(OffGliderActivationText());
             Destroy(gameObject);
         }
+    }
+
+    private IEnumerator OffGliderActivationText()
+    {
+        // Wait for the specified duration
+        yield return new WaitForSeconds(duration);
+
+        // Deactivate the GameObject
+        gliderActivationText.SetActive(false);
     }
 }
