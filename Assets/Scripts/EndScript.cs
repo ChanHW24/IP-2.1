@@ -14,7 +14,7 @@ public class EndScript : MonoBehaviour
         if (playerInTrigger && Input.GetKeyUp(KeyCode.E))
         {
             interactText.SetActive(false); // Hide the interaction text before changing the scene
-            SceneManager.LoadScene("GamePlay"); // Targeted scene
+            SceneManager.LoadScene("EndScene"); // Targeted scene
         }
     }
 
