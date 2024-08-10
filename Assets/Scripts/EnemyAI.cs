@@ -147,7 +147,7 @@ public class EnemyAI : MonoBehaviour
         // if the distance is close enough to the player it reloads the scene
         if (distance < deathRange)
         {
-            Debug.Log("Pause");
+            Debug.Log("You got caught.");
             caughtMenuUI.SetActive(true); // Show pause menu
             backgroundImage.SetActive(true); // Show background image
             crossHair.SetActive(false); // Turn off crosshair

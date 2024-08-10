@@ -11,6 +11,7 @@ public class Vent : MonoBehaviour
         if (other.gameObject == screwDriver)
         {
             Destroy(gameObject);
+            Destroy(screwDriver);
         }
     }
 }
