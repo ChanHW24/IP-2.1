@@ -8,23 +8,28 @@ public class TradeItem : MonoBehaviour
     public GameObject targetObject2; // The specific GameObject to detect
     public GameObject itemToInstantiate; // The prefab to instantiate when the trigger is activated
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        // Check if the entering GameObject is the target object
-        if (other.gameObject == targetObject1 || other.gameObject == targetObject2)
+        // Check if the colliding GameObject is the target object
+        if (collision.gameObject == targetObject1 || collision.gameObject == targetObject2)
         {
-            // Instantiate the item at the trigger's position
-            Instantiate(itemToInstantiate, other.transform.position, Quaternion.identity);
+            // Instantiate the item at the collision's position
+            Instantiate(itemToInstantiate, collision.transform.position, Quaternion.identity);
 
             // Destroy the detected target object
-            if (other.gameObject == targetObject1)
+            if (collision.gameObject == targetObject1)
             {
                 Destroy(targetObject1);
             }
-            else if (other.gameObject == targetObject2)
+            else if (collision.gameObject == targetObject2)
             {
                 Destroy(targetObject2);
             }
         }
     }
 }
+
+
+    
+
+

@@ -25,6 +25,8 @@ public class NPCInteractable : MonoBehaviour
     public bool playerIsClose;
     public GameObject interactText, contText;
 
+    private bool isTyping; // Track if the typing coroutine is active
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -32,7 +34,7 @@ public class NPCInteractable : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && playerIsClose)
+        if (Input.GetKeyDown(KeyCode.E) && playerIsClose && !isTyping)
         {
 
             Interact(); // Talking Animation.
@@ -51,7 +53,7 @@ public class NPCInteractable : MonoBehaviour
 
         if (dialogueText.text == dialogue[index])
         {
-            contText.SetActive(true);
+            contText.SetActive(true); // Set active the text prompt to prompt player to press E
         }
     }
 
@@ -71,11 +73,16 @@ public class NPCInteractable : MonoBehaviour
 
     IEnumerator Typing()
     {
+        isTyping = true; // Start typing
+        dialogueText.text = ""; // Clear text before typing
+
         foreach (char letter in dialogue[index].ToCharArray())
         {
             dialogueText.text += letter;
             yield return new WaitForSeconds(wordSpeed);
         }
+
+        isTyping = false; // Typing is complete
     }
 
     public void NextLine()
@@ -86,7 +93,7 @@ public class NPCInteractable : MonoBehaviour
         if (index < dialogue.Length - 1)
         {
             index++;
-            dialogueText.text = "";
+            //dialogueText.text = ""; // Clear text before typing
             StartCoroutine(Typing());
         }
         else

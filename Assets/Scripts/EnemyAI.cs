@@ -28,6 +28,15 @@ public class EnemyAI : MonoBehaviour
     public GameObject hideText, stopHideText;
     public AudioSource walkSound, runSound, heySound;
 
+    // For the Caught menu UI
+    public static bool GameIsPause = false;
+    public GameObject caughtMenuUI; // Reference to the pause menu
+    public GameObject backgroundImage; // Reference to the background image
+    public GameObject crossHair; // Reference to the crosshair
+    public MonoBehaviour playerCameraController;
+
+    public float playerHeight = 2f;
+
     void Start()
     {
         walking = true;
@@ -37,13 +46,16 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
+        Vector3 targetPoint = new Vector3(player.position.x, player.position.y - playerHeight / 2, player.position.z);
         Vector3 direction = (player.position - transform.position).normalized;
         RaycastHit hit;
+        Debug.DrawRay(transform.position + rayCastOffset, direction * sightDistance, Color.red); // Visualize the Raycast
         aiDistance = Vector3.Distance(player.position, this.transform.position);
         if(Physics.Raycast(transform.position + rayCastOffset, direction, out hit,sightDistance))
         {
             if(hit.collider.gameObject.tag == "Player")
             {
+                Debug.Log("chase");
                 walking = false;
                 StopCoroutine("idleState");
                 StopCoroutine("chaseState");
@@ -135,8 +147,18 @@ public class EnemyAI : MonoBehaviour
         // if the distance is close enough to the player it reloads the scene
         if (distance < deathRange)
         {
+            Debug.Log("Pause");
+            caughtMenuUI.SetActive(true); // Show pause menu
+            backgroundImage.SetActive(true); // Show background image
+            crossHair.SetActive(false); // Turn off crosshair
+            //Time.timeScale = 0f; // Freeze time
+            GameIsPause = true;
+            Cursor.visible = true; // Show cursor
+            Cursor.lockState = CursorLockMode.None; // Unlock cursor
+            playerCameraController.enabled = false; // Disable camera movement
+
             // loads the active scene
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name); // this can be easily change to another scene.
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name); // this can be easily change to another scene.
         }
     }
 
