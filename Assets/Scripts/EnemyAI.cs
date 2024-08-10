@@ -21,7 +21,7 @@ public class EnemyAI : MonoBehaviour
     Transform currentDest; 
     Vector3 dest;
     int randNum;
-    public Vector3 rayCastOffset;
+    public Vector3 rayCastOffset = new Vector3(0, 1, 0);
     public string deathScene;
     public float deathRange = .80f; // the distance at which the enemy kills the player
     public float aiDistance;
@@ -46,7 +46,7 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
-        Vector3 targetPoint = new Vector3(player.position.x, player.position.y - playerHeight / 2, player.position.z);
+
         Vector3 direction = (player.position - transform.position).normalized;
         RaycastHit hit;
         Debug.DrawRay(transform.position + rayCastOffset, direction * sightDistance, Color.red); // Visualize the Raycast

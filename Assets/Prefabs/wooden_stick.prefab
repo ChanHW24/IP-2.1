@@ -11,17 +11,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: cb72211b165b3004884a7f456af477c4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -53.091393
+      value: 259.11
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cb72211b165b3004884a7f456af477c4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.861826
+      value: 70.602
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cb72211b165b3004884a7f456af477c4,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 23.84055
+      value: 232.026
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cb72211b165b3004884a7f456af477c4,
         type: 3}
@@ -68,8 +68,111 @@ PrefabInstance:
       propertyPath: m_Name
       value: wooden_stick
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cb72211b165b3004884a7f456af477c4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cb72211b165b3004884a7f456af477c4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8651797390621187587}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cb72211b165b3004884a7f456af477c4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1179804656538194650}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cb72211b165b3004884a7f456af477c4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7202114882980792232}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cb72211b165b3004884a7f456af477c4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3692029637409907867}
   m_SourcePrefab: {fileID: 100100000, guid: cb72211b165b3004884a7f456af477c4, type: 3}
+--- !u!1 &5586788473605052869 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: cb72211b165b3004884a7f456af477c4,
+    type: 3}
+  m_PrefabInstance: {fileID: 4704338932529423508}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &8651797390621187587
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5586788473605052869}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.07374023, y: 1.4438788, z: 0.07374023}
+  m_Center: {x: 0, y: 0.7219394, z: 0}
+--- !u!54 &1179804656538194650
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5586788473605052869}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 5
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &7202114882980792232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5586788473605052869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaf6eb6611de246b39f2cea22c19c277, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3692029637409907867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5586788473605052869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa904dc035a36499c86dc1bea738b998, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combinedItemPrefab: {fileID: 0}
+  otherItemNames:
+  - rope
+  - blanket

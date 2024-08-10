@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9c5ddfdd873e0484eb407854a6731001,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.7374611
+      value: -8.731
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9c5ddfdd873e0484eb407854a6731001,
         type: 3}
@@ -21,7 +21,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9c5ddfdd873e0484eb407854a6731001,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.93099976
+      value: 8.854
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9c5ddfdd873e0484eb407854a6731001,
         type: 3}
@@ -94,6 +94,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7941498481115408519}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9c5ddfdd873e0484eb407854a6731001,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1838586819434187489}
   m_SourcePrefab: {fileID: 100100000, guid: 9c5ddfdd873e0484eb407854a6731001, type: 3}
 --- !u!1 &3918138335286160215 stripped
 GameObject:
@@ -161,3 +165,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaf6eb6611de246b39f2cea22c19c277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1838586819434187489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3918138335286160215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa904dc035a36499c86dc1bea738b998, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combinedItemPrefab: {fileID: 0}
+  otherItemNames:
+  - rope
+  - wooden_stick
